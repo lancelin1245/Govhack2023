@@ -1,0 +1,50 @@
+---
+title: "govhack"
+author: "team 2078"
+date: "2023-08-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+Year <- 2011:2022
+EV_sales <- c(49, 253, 293,1322,1771,1369,2284,2216,6718,6900, 20665,39553)
+plot(Year,EV_sales, xlim = c(2011,2023), main = "Australian annual EV sales from EVC", ylim = c(0, 40000))
+lines(Year, EV_sales)
+```
+
+``` {r}
+# Load the required libraries
+library(forecast)
+
+# Create the time series object
+EV_sales_ts <- ts(EV_sales, start = 2011, frequency = 1)
+
+# Fit an ARIMA model to the time series data
+# Here, we use auto.arima to automatically select the best ARIMA model
+model <- auto.arima(EV_sales_ts)
+
+# Forecast the next 'n' periods
+n_forecast <- 3  # You can adjust this based on how far you want to forecast
+forecast_result <- forecast(model, h = n_forecast)
+
+# Print the forecasted values
+print(forecast_result)
+
+# Plot the original data and the forecasted values
+plot(forecast_result, main = "EV Sales Forecast", xlab = "Year", ylab = "Sales")
+lines(EV_sales_ts, col = "black")
+
+```
+
+``` {r}
+```
+
+``` {r}
+```
+
+``` {r}
+```
